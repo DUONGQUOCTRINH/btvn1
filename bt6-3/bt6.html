@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Sản Phẩm</title>
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      button {
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      let productIndex = 1;
+
+      function addProductRow() {
+        const table = document.getElementById("productTableBody");
+        const newRow = createProductRow(productIndex++);
+        table.appendChild(newRow);
+      }
+
+      function createProductRow(index) {
+        const row = document.createElement("tr");
+        row.setAttribute("id", "productRow" + index);
+
+        row.appendChild(createTextCell("Sản phẩm " + index));
+        row.appendChild(createInputField("MSP" + index));
+        row.appendChild(createInputField("Tên" + index));
+        row.appendChild(createInputField("SL" + index));
+
+        const addButton = document.createElement("button");
+        addButton.innerText = "Thêm";
+        addButton.onclick = function () {
+          addProductRow();
+        };
+        row.appendChild(createButtonCell(addButton));
+
+        const removeButton = document.createElement("button");
+        removeButton.innerText = "Xoá";
+        removeButton.onclick = function () {
+          removeProductRow(row);
+        };
+        row.appendChild(createButtonCell(removeButton));
+
+        return row;
+      }
+
+      function createInputField(name) {
+        const input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", name);
+        input.setAttribute("value", "");
+        return createCell(input);
+      }
+
+      function createTextCell(text) {
+        const cell = document.createElement("td");
+        cell.innerText = text;
+        return cell;
+      }
+
+      function createButtonCell(button) {
+        const cell = document.createElement("td");
+        cell.appendChild(button);
+        return cell;
+      }
+
+      function createCell(child) {
+        const cell = document.createElement("td");
+        cell.appendChild(child);
+        return cell;
+      }
+
+      function removeProductRow(row) {
+        row.parentNode.removeChild(row);
+      }
+
+      function init() {
+        addProductRow();
+      }
+
+      window.onload = init;
+    </script>
+  </head>
+  <body>
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>Tên Sản Phẩm</th>
+          <th>Mã Sản Phẩm</th>
+          <th>Tên</th>
+          <th>Số Lượng</th>
+          <th>Thêm</th>
+          <th>Xoá</th>
+        </tr>
+      </thead>
+      <tbody id="productTableBody">
+        <!-- Các hàng sản phẩm sẽ được thêm vào đây -->
+      </tbody>
+    </table>
+  </body>
+</html>
